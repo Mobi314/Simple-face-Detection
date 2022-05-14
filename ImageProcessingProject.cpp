@@ -1,3 +1,12 @@
+/*******************************************************************************
+ * Name        : ImageProcessingProject.cpp
+ * Author      : Tahrim Imon, Janet Hamrani, Enis Rama
+ * Version     : 1.0
+ * Date        : 5/14/2022
+ * Description : Face Detection using OpenCV Library
+ * Pledge      : I pledge my honor that I have abided by the Stevens Honor System
+ ******************************************************************************/
+
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp> 
 #include <opencv2/imgproc.hpp>
@@ -7,11 +16,6 @@
 using namespace cv;
 using namespace std;
 
-// Function for Face Detection
-void detectAndDraw(Mat& img, CascadeClassifier& cascade,
-    CascadeClassifier& nestedCascade, double scale);
-string cascadeName, nestedCascadeName;
-
 void detectAndDraw(Mat& img, CascadeClassifier& cascade,
     CascadeClassifier& nestedCascade,
     double scale)
@@ -19,7 +23,8 @@ void detectAndDraw(Mat& img, CascadeClassifier& cascade,
     vector<Rect> faces, faces2;
     Mat gray, smallImg;
 
-    cvtColor(img, gray, COLOR_BGR2GRAY); // Convert to Gray Scale
+    // Convert to Gray Scale
+    cvtColor(img, gray, COLOR_BGR2GRAY);
     double fx = 1 / scale;
 
     // Resize the Grayscale Image 
@@ -102,8 +107,10 @@ int main(int argc, const char** argv)
             capture >> frame;
             if (frame.empty())
                 break;
+            
             Mat frame1 = frame.clone();
             detectAndDraw(frame1, cascade, nestedCascade, scale);
+            
             char c = (char)waitKey(10);
 
             // Press q to exit from window
